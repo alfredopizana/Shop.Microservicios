@@ -8,7 +8,7 @@ namespace Catalog.API.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        public ICatalogContext catalogContext;
+        public readonly ICatalogContext catalogContext;
         public ProductRepository(ICatalogContext catalogContext)
         {
             this.catalogContext = catalogContext;
