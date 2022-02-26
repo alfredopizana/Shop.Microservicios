@@ -20,3 +20,16 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db 
+  basket.api:
+    container_name: basket.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8001:80"
+    depends_on:
+      - basketdb
+  basketdb:
+    container_name: basketdb
+    ports:
+      - "6379:6379"
+
