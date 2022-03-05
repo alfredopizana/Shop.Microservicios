@@ -33,3 +33,10 @@ services:
     ports:
       - "6379:6379"
 
+  orderdb:
+    container_name: orderdb
+    environment:
+      SA_PASSWORD: "pASSWORD23"
+      ACCEPT_EULA: "Y"
+    ports:
+    - "1433:1433"

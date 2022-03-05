@@ -13,6 +13,9 @@ services:
     build:
       context: .
       dockerfile: Services/Basket.API/Basket.API/Dockerfile
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+
   basketdb:
     image: redis:alpine
 volumes:
