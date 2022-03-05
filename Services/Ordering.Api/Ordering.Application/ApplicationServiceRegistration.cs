@@ -20,6 +20,7 @@ namespace Ordering.Application
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(UnhandledExceptionBehaviour<,>));
             return services;
         }
     }
