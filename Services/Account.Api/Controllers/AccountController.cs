@@ -32,20 +32,42 @@ namespace Account.Api.Controllers
             this.signInManager = signInManager;
             this.roleManager = roleManager;
         }
+
+
+        [HttpPost("Login")]
+        public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
+        {
+            if(!await UserExists(loginDTO.UserName.ToLower()))
+                return Unauthorized();
+            var user = await userManager.Users.SingleAsync(x=> x.UserName == loginDTO.UserName.ToLower());
+
+            var result = await signInManager.CheckPasswordSignInAsync(user,loginDTO.Password, true);
+            if(!result.Succeeded)
+                return Unauthorized();
+            return new UserDTO
+            {
+                UserName = loginDTO.UserName,
+                Token = await GetToken(user)
+            };
+        }
+
+
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
         {
             if (await UserExists(registerDTO.UserName.ToLower()))
-                return BadRequest("El usuario ya existe");
+                return BadRequest("el usuario ya existe");
+
             var user = new ShopUser()
             {
                 UserName = registerDTO.UserName.ToLower(),
                 Email = registerDTO.Email
             };
 
-            var result = await userManager.CreateAsync(user, registerDTO.UserName);
+            var result = await userManager.CreateAsync(user, registerDTO.Password);
 
-            if(!result.Succeeded) return BadRequest(result.Errors);
+            if (!result.Succeeded) return BadRequest(result.Errors);
+
             return new UserDTO
             {
                 UserName = registerDTO.UserName,
@@ -53,17 +75,21 @@ namespace Account.Api.Controllers
             };
         }
 
+
         private async Task<string> GetToken(ShopUser user)
         {
             var now = DateTime.UtcNow;
             var key = configuration.GetValue<string>("Identity:Key");
+
+
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, user.Id),
-                new Claim(JwtRegisteredClaimNames.Iat, now.ToUniversalTime().ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+             new Claim(JwtRegisteredClaimNames.Sub,user.UserName),
+             new Claim(JwtRegisteredClaimNames.Jti,user.Id),
+             new Claim(JwtRegisteredClaimNames.Iat,now.ToUniversalTime().ToString()),
+             new Claim(JwtRegisteredClaimNames.Email,user.Email),
             };
+
             var roles = await userManager.GetRolesAsync(user);
 
             claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
@@ -77,14 +103,17 @@ namespace Account.Api.Controllers
                 SigningCredentials = new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256Signature)
             };
 
-            var encondedJwt = new JwtSecurityTokenHandler();
 
-            var token = encondedJwt.CreateToken(tokenDescriptor);
-            return encondedJwt.WriteToken(token);
+            var encodedJwt = new JwtSecurityTokenHandler();
+
+            var token = encodedJwt.CreateToken(tokenDescriptor);
+
+            return encodedJwt.WriteToken(token);
 
         }
 
         private async Task<bool> UserExists(string userName)
             => await userManager.Users.AnyAsync(x=>x.UserName == userName);
+        
     }
 }
