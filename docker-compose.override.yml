@@ -24,6 +24,7 @@ services:
     container_name: basket.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings__OrderingConnectionString=basketdb:6379"
     ports:
       - "8001:80"
     depends_on:
@@ -40,3 +41,37 @@ services:
       ACCEPT_EULA: "Y"
     ports:
     - "1433:1433"
+
+  ordering.api:
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings__OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=pASSWORD23"
+      - "Identity__Key=qwertyuioplkjhgfdsazxcvbnmm123321sdfgsdfgsdfg"
+    depends_on:
+      - orderdb
+    ports:
+      - "8002:80"
+
+
+
+  account.api:
+    container_name: account.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings__OrderingConnectionString=Server=orderdb;Database=AccountDb;User Id=sa;Password=pASSWORD23"
+      - "Identity__Key=qwertyuioplkjhgfdsazxcvbnmm123321sdfgsdfgsdfg"
+    ports:
+      - "8003:80"
+    depends_on:
+      - orderdb
+
+
+
+  ocelotgateawy:
+    container_name: ocelotgateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "8005:80"
+

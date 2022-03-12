@@ -4,7 +4,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:65406",
+      "applicationUrl": "http://localhost:61010",
       "sslPort": 0
     }
   },
@@ -14,10 +14,10 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Local"
       }
     },
-    "Ordering.API": {
+    "OcelotGateawy": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

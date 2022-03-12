@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Domain", "Services
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Infrastructure", "Services\Ordering.Api\Ordering.Infrastructure\Ordering.Infrastructure.csproj", "{78046BD4-81DE-4A1B-846F-74863B994870}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.Api", "Services\Account.Api\Account.Api.csproj", "{D4273C17-9E6C-4F43-9474-E2E51AB54F88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Api", "Services\Account.Api\Account.Api.csproj", "{D4273C17-9E6C-4F43-9474-E2E51AB54F88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotGateawy", "Services\OcelotGateawy\OcelotGateawy.csproj", "{C930CF8A-FEFA-4A63-8DD0-87E0D98296C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,10 @@ Global
 		{D4273C17-9E6C-4F43-9474-E2E51AB54F88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4273C17-9E6C-4F43-9474-E2E51AB54F88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4273C17-9E6C-4F43-9474-E2E51AB54F88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C930CF8A-FEFA-4A63-8DD0-87E0D98296C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C930CF8A-FEFA-4A63-8DD0-87E0D98296C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C930CF8A-FEFA-4A63-8DD0-87E0D98296C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C930CF8A-FEFA-4A63-8DD0-87E0D98296C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +97,7 @@ Global
 		{91815644-E844-4884-9A0B-A440252292CE} = {3F6F788F-094E-4474-9BBF-A92B4EA5A5D3}
 		{78046BD4-81DE-4A1B-846F-74863B994870} = {3F6F788F-094E-4474-9BBF-A92B4EA5A5D3}
 		{D4273C17-9E6C-4F43-9474-E2E51AB54F88} = {9D083E56-A910-4655-B334-1A7DD8C55A0E}
+		{C930CF8A-FEFA-4A63-8DD0-87E0D98296C1} = {87AEC2FB-7D61-404D-8062-2DA064358679}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ADA350C7-F750-4FA4-96FC-266B7C48354D}

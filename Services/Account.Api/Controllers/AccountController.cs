@@ -51,6 +51,25 @@ namespace Account.Api.Controllers
             };
         }
 
+        [HttpPost("Roles")]
+        public async Task<ActionResult> CreateRole(string role)
+        {
+            //Validar que el role no exista en base de datos
+            var result = await roleManager.CreateAsync(new IdentityRole { Name = role });
+            return NoContent();    
+        }
+
+        [HttpPost("AddUserToRole")]
+        public async Task<ActionResult> AddUserToRole(string userName,string role)
+        {
+            //validar que el usuario exista y que no este en el rol
+            var user = await userManager.FindByNameAsync(userName);
+            //validar que el rol exista
+            await userManager.AddToRoleAsync(user, role);
+
+            return NoContent(); 
+        }
+
 
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
@@ -84,10 +103,10 @@ namespace Account.Api.Controllers
 
             var claims = new List<Claim>
             {
-             new Claim(JwtRegisteredClaimNames.Sub,user.UserName),
-             new Claim(JwtRegisteredClaimNames.Jti,user.Id),
-             new Claim(JwtRegisteredClaimNames.Iat,now.ToUniversalTime().ToString()),
-             new Claim(JwtRegisteredClaimNames.Email,user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub,user.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti,user.Id),
+                new Claim(JwtRegisteredClaimNames.Iat,now.ToUniversalTime().ToString()),
+                new Claim(JwtRegisteredClaimNames.Email,user.Email),
             };
 
             var roles = await userManager.GetRolesAsync(user);
